@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    $(if refresh-timeout)
+    <meta http-equiv="refresh" content="$(refresh-timeout-secs)">
+    $(endif)
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Mikrotik Hotspot Login page</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="/css/bootstrap-theme.css" rel="stylesheet">
+
+
+    <script language="JavaScript">
+        <!--
+        $(if advert-pending == 'yes')
+            var popup = '';
+        function focusAdvert() {
+            if (window.focus) popup.focus();
+        }
+        function openAdvert() {
+            popup = open('$(link-advert)', 'hotspot_advert', '');
+            setTimeout("focusAdvert()", 1000);
+        }
+        $(endif)
+        function openLogout() {
+            if (window.name != 'hotspot_status') return true;
+            open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+            window.close();
+            return false;
+        }
+        //-->
+    </script>
+    <script language="JavaScript">
+
+function readablizeBytes(bytes) {
+var s = ['bytes', 'kb', 'MB', 'GB', 'TB', 'PB'];
+var e = Math.floor(Math.log(bytes)/Math.log(1024));
+return (bytes/Math.pow(1024, Math.floor(e))).toFixed(2)+" "+s[e];
+}
+
+</script>
+    <style>
+        
+    
+    </style>
+</head>
+
+<body role="document">
+$(if advert-pending == 'yes')
+onLoad="openAdvert()"
+$(endif)
+
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">HotSpot Service</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-flag"></i> Change Language <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="$(link-login-only)?target=%2F&amp;dst=$(link-orig-esc)">English</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="$(link-login-only)?target=lv&amp;dst=$(link-orig-esc)">Latvinski</a></li>
+                        <li><a href="$(link-login-only)?target=pl&amp;dst=$(link-orig-esc)">Polski</a></li>
+
+                    </ul>
+                </li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container theme-showcase" role="main">
+
+    <div class="row"><br></div>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="row">
+        $(if login-by == 'trial')
+            <br><h1>Welcome trial user!</h1><br>
+            $(elif login-by != 'mac')
+        <p>مرحبا بك معنا</p>
+            $(endif)
+    </div>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5 class="panel-title text-center">للعوده لهذه الصفحه في اي وقت لاستخدام الاختصارات السريعه لاهم الروابط او لتسجيل الخروج اكتب  </h5>
+                    <h3 class="panel-title text-center"><b>www.freenet.com </b> </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-responsive table-bordered">
+                        <tbody>
+                        <tr><td>$(username)</td><td align="right">  المستخدم الحالي</td></tr>
+                        <tr><td><script language="JavaScript">document.write(readablizeBytes($(limit-bytes-out)));</script></td><td align="right">  رصيد بياناتك عند بدا الجلسه</td></tr>
+                        <tr><td><script language="JavaScript">document.write(readablizeBytes($(remain-bytes-out)));</script></td><td align="right">   باقي الرصيد بحسابك </td></tr>    
+                        <tr><td>$(bytes-in-nice) / $(bytes-out-nice)</td><td align="right"> البيانات المسخدمه بالجلسه الحاليه  </td></tr>
+                        <tr><td>$(session-time-left)</td><td align="right">  الزمن المتبقي في رصيدك</td></tr> 
+                        
+                        
+                        $(if session-time-left)
+                        <tr style="display:none" ><td>$(uptime) / $(session-time-left)</td><td align="right">زمن الاتصال / الوقت المتبقي  </td></tr>
+                        $(else)
+                        
+                        $(endif)
+                        $(if blocked == 'yes')
+                        <tr><td><div style="color: #FF8080">
+                            <a href="$(link-advert)" target="hotspot_advert">advertisement</a> required</div></td><td align="right">يتم تحديث البيانات كل</td>
+                            $(elif refresh-timeout)
+                        <tr style="display:none"><td>$(refresh-timeout)</td><td align="right">سيتم تحديث الصفحه كل</td>
+                            $(endif)
+                        </tbody>
+                    </table>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form action="$(link-logout)" name="logout" onSubmit="return openLogout()">
+                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                    <btn class="btn btn-default btn-block" onclick="location.reload();">Refresh</btn>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-lg-6">
+                                <input type="submit" value="Log Off" class="btn btn-danger btn-block">
+                                    </div>
+                                </form>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+    
+<div class="row">
+    
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-success btn-block btn-lg" onclick="window.open('http://www.fn.com/fn/main/img/apk/quran.apk', '_blank');">هديه لكل اصحاب اجهزه الاندرويد ...استمع للقران الكريم بجهازك و بدون الحاجه للنت</btn>
+    </div>
+    <br>
+    
+    <div class="col-md-12 col-sm-12 col-lg-12" >
+     <btn class="btn btn-danger btn-block btn-lg w3-animate-fading " onclick="window.open('http://www.fn.com/fn/main/out/ramadan2017.html', '_blank');">  مسلسلات رمضان</btn>
+    </div>
+    <br>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-info btn-block" onclick="window.open('http://www.fn.com/fn/main/out/Ibraheem_Albalowshy.html', '_blank');"><b>للاستماع لاروع تلاوات القران الكريم</b> </btn>
+    </div>
+    <br>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-success btn-block btn-lg" onclick="window.open('http://www.fn.com/fn/main/out/fastLink.html', '_blank');">ما يطلبه اعضاء شبكه فري نت </btn>
+    </div>
+    <br>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-primary btn-block" onclick="window.open('http://www.fn.com/fn/main/out/index.html', '_blank');">للتوجه للاستراحه </btn>
+    </div>
+   <br>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-info btn-block" onclick="window.open('http://www.fn.com/fn/main/out/mov2.html', '_blank');">اخر الافلام المظافه  </btn>
+    </div>
+    <br>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-warning btn-block" onclick="window.open('http://www.fn.com/phpfreechat/examples/default.html', '_blank');">للدخول لغرفه دردشه فري نت </btn>
+    </div>
+    <br>
+    <div class="col-md-12 col-sm-12 col-lg-12">
+     <btn class="btn btn-primary btn-block" onclick="window.open('http://www.fn.com/fn/main/out/massage.html', '_blank');">لاستقبال طلباتكم و مقترحاتكم  </btn>
+    </div>
+    
+    <div class="col-md-12 col-sm-12 col-lg-12" >
+     <btn class="btn btn-danger btn-block btn-lg w3-animate-fading " onclick="window.open('http://www.google.com', '_blank');"> للتوجه لصفحه جوجل</btn>
+    </div>
+</div>
+  
+    
+    
+    <footer class="well">
+        <div class="container">
+            <p class="text-muted text-center">www.freenet.com</p>
+        </div>
+    </footer>
+
+</div> <!-- /container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+    
+<script src="/js/jquery-1.12.2.min.js"></script>
+<script>window.jQuery || document.write('<script src="/js/jquery-1.12.2.min.js"><\/script>')</script>
+<script src="/js/bootstrap.min.js"></script>
+</body>
+</html>
