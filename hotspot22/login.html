@@ -54,7 +54,7 @@ $(if chap-id)
 $(endif)
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -68,13 +68,11 @@ $(endif)
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-flag"></i> اختصارات <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-flag"></i> اختصارات مهمه <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="http://www.fn.com/">عن الاستراحه</a></li>
-                        <li role="separator" class="divider"></li> 
-                        <li><a href="#sellSystem">نقاط البيع </a></li>
+                        <li><a class="w3-right" href="#sellSystem">نقاط البيع </a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="#cardSystem">نظام الكروت</a></li>
+                        <li><a class="w3-right" href="#cardSystem">نظام الكروت</a></li>
 
                     </ul>
                 </li>
@@ -86,9 +84,9 @@ $(endif)
 <div class="container theme-showcase" role="main">
 
     <!-- Main jumbotron for a primary marketing message or call to action -->
-    <div class="jumbotron">
+    <div class="jumbotron w3-hide">
         <!-- slide show -->
-<div id="mySlides1" class="w3-content w3-theme" style="max-width:300px; height:50px" >
+<div id="mySlides1" class="w3-content w3-theme " style="max-width:300px; height:50px" >
   
   <div class="mySlides1 w3-container w3-animate-top">
     <p class="w3-center"><b> FREE NET</b></p>
@@ -130,7 +128,7 @@ function carousel() {
         $(error)
     </div>
     $(endif)
-    <div class="row">
+    <div class="row " style="margin-top:48px">
         <div class="well-sm col-sm-12  col-md-12 w3-border w3-card">
 
             <div class="panel panel-default">
@@ -146,7 +144,7 @@ function carousel() {
                         <label for="username"></label>
                         <div class="input-group">
                             <span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input type="text" name="username" class="form-control" placeholder="Username" aria-describedby="username-field" value="$(username)">
+                            <input type="text" name="username" class="form-control" placeholder="ادخل الرمز هنا" aria-describedby="username-field" value="$(username)">
                         </div>
                         
                         <div class="input-group hidden">
@@ -162,10 +160,12 @@ function carousel() {
         
      
         <div class="well-sm col-sm-12  col-md-12 w3-border w3-card">
-            
-             <p class="w3-deep-orange text-center w3-border w3-round"> للرد على اي من استفساراتكم   739920001  or  701601322</p>
-           
+            <p class="w3-green text-center w3-border w3-round"> سيتم قريبا تفعيل الاستراحه بمميزاتها الجديده</p>
+            <p class="w3-green text-center w3-border w3-round"> سننقل لكم ملخصات جميع المباريات بقسم خاص بالاستراحه</p>
+            <p class="w3-green text-center w3-border w3-round">بحسب رغبه مشتركينا سننقل لكم اهم مباريات كاس العالم مباشره</p>
 
+
+            <p class="w3-deep-orange text-center w3-border w3-round"> للرد على اي من استفساراتكم   739920001  or  701601322</p>
             <p class="text-center w3-red w3-border w3-round"><b>تنبيه.... حفاظا على سلامه الشبكه سيتم ايقاف الشبكه في حال وجود برق او لوامع</b></p>
    
 
@@ -173,7 +173,7 @@ function carousel() {
     </div>
                 
 
-    <div class="row">
+    <div class="row w3-hide">
         <div id="cardSystem" class="well-sm col-sm-12  col-md-6 w3-border w3-card">
         <h4 class="header">مميزات الكروت ... </h2>
             
